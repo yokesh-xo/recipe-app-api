@@ -1,0 +1,20 @@
+version: "3.9"
+
+# docker-compose file consistes of one or more service, this service runs inside of our docker file
+services:
+  app:
+    # build the docker file inside of our current directory
+    build:
+      context: . 
+      args:
+        - DEV=true
+    # connects ports on local machine to docker container
+    ports:
+      - "8000:8000"
+    # mapping directory from system to container
+    volumes:
+      - ./app:/app
+    # default command run on docker compose
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+
